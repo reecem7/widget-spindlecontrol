@@ -269,15 +269,45 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         /**
          * onHelloBtnClick is an example of a button click event callback
          */
+          sendCtr: 0,
         onHelloBtnClick: function(evt) {
+            var gcode = "G91 G0";
+            var speed = document.getElementById('demo').value;
+            gcode += "X" + speed;
+            gcode += "\nG90\n";
+            //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);          
+            var jsonSend = {
+                D: gcode,
+                Id: "jog" + this.sendCtr
+            };
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", jsonSend);
+            this.sendCtr++;
+            if (this.sendCtr > 999999) this.sendCtr = 0;
             console.log("Spindle on at ----");
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Spindle On",
-                "Spindle speed: " + this.id,
+                "Spindle speed: " ,
+                //+ this.id,
                 2000 /* show for 2 second */
             );
         },
+        
+        //added below
+        sendCtr: 0,
+        sendMove: function (touchid, prevpos, newpos) {
+            var gcode = "G91 G0 X1";
+            gcode += "\nG90\n";
+            //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);          
+            var jsonSend = {
+                D: gcode,
+                Id: "jog" + this.sendCtr
+            };
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", jsonSend);
+            this.sendCtr++;
+            if (this.sendCtr > 999999) this.sendCtr = 0;
+        },
+        //added above
         
         /**
          * User options are available in this property for reference by your
@@ -472,11 +502,12 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 <div class="tab-pane active" id="com-chilipeppr-widget-spindlecontrol-tab1">
                     <p>Use slider to select correct spindle speed and click "Spindle On" to activate.</p>
                     <div id="slidecontainer">
-                      <input type="range" min="1" max="24000" value="8000" class="slider" id="myRange">
+                      <input type="range" min="1" max="10" value="2" class="slider" id="myRange">
                         <p>Speed: <span id="demo"> </span> RPMs</p>
                     </div>
                     <div class="">
-                        <button type="button" class="btn btn-xs btn-default btn-spindleOn" style="margin: 4px 0;">Spindle On</button>
+                        <button type="button" class="btn btn-xs btn-default btn-spindleOn" style="margin: 4px 0;">Spindle On
+                        </button>
                     </div>
                      <p>Current Speed: <span id="demo"> </span> RPMs</p>
                     
