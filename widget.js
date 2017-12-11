@@ -201,11 +201,11 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
          * onHelloBtnClick is an example of a button click event callback
          */
         onHelloBtnClick: function(evt) {
-            console.log("saying hello 2 from btn in tab 1");
+            console.log("Spindle on at ----");
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "Hello 2 Title",
-                "Hello World 2 from Tab 1 from widget " + this.id,
+                "Spindle On",
+                "Spindle speed: " + this.id,
                 2000 /* show for 2 second */
             );
         },
