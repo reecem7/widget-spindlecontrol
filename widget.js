@@ -223,7 +223,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 2000 /* show for 2 second */
             );
         },
-        
+        /*
         //added below
         sendCtr: 0,
         sendMove: function (touchid, prevpos, newpos) {
