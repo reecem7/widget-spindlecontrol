@@ -145,6 +145,8 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
          * buttons. It also turns on all the bootstrap popovers by scanning
          * the entire DOM of the widget.
          */
+         
+         
         btnSetup: function() {
 
             // Chevron hide/show body
@@ -254,6 +256,17 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 this.hideBody();
             }
 
+               var slider = document.getElementById("myRange");
+                var output = document.getElementById("demo");
+            output.innerHTML = slider.value; // Display the default slider value
+            
+            // Update the current slider value (each time you drag the slider handle)
+            slider.oninput = function() {
+             
+                output.innerHTML = this.value;
+            };
+            
+
         },
         /**
          * When a user changes a value that is stored as an option setting, you
@@ -346,18 +359,6 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             });
 
         },
-        
-            sliderData: function (){
-                var slider = document.getElementById("myRange");
-                var output = document.getElementById("demo");
-            output.innerHTML = slider.value; // Display the default slider value
-            
-            // Update the current slider value (each time you drag the slider handle)
-            slider.oninput = function() {
-             
-                output.innerHTML = this.value;
-            }
-            },
             
 
     };
