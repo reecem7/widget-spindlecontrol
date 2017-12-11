@@ -278,6 +278,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 2000 /* show for 2 second */
             );
         },
+        
         /**
          * User options are available in this property for reference by your
          * methods. If any change is made on these options, please call
@@ -471,7 +472,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 <div class="tab-pane active" id="com-chilipeppr-widget-spindlecontrol-tab1">
                     <p>Use slider to select correct spindle speed and click "Spindle On" to activate.</p>
                     <div id="slidecontainer">
-                      <input type="range" min="1" max="100" value="50" class="slider" id="myRange">
+                      <input type="range" min="1" max="24000" value="1000" class="slider" id="myRange">
                         <p>Value: <span id="demo"></span></p>
                     </div>
                     <div class="">
@@ -496,6 +497,16 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
 
         </div>
     </div>
-</body>
+    
+    <script>
+    var slider = document.getElementById("myRange");
+    var output = document.getElementById("demo");
+    output.innerHTML = slider.value;
 
+    slider.oninput = function() {
+    output.innerHTML = this.value;
+    }
+</script>
+    
+</body>
 </html>

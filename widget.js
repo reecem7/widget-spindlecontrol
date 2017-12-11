@@ -209,6 +209,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 2000 /* show for 2 second */
             );
         },
+        
         /**
          * User options are available in this property for reference by your
          * methods. If any change is made on these options, please call
