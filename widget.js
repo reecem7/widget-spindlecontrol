@@ -218,7 +218,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Spindle On",
-                "Spindle speed:" + jsonSend ,
+                "Spindle speed:", jsonSend ,
                 //+ this.id,
                 2000 /* show for 2 second */
             );
