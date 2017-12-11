@@ -280,14 +280,14 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 D: gcode,
                 Id: "jog" + this.sendCtr
             };
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", jsonSend);
-            this.sendCtr++;
-            if (this.sendCtr > 999999) this.sendCtr = 0;
+           // chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", jsonSend);
+            //this.sendCtr++;
+          //  if (this.sendCtr > 999999) this.sendCtr = 0;
             console.log("Spindle on at ----");
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Spindle On",
-                "Spindle speed: " ,
+                "Spindle speed:" + jsonSend ,
                 //+ this.id,
                 2000 /* show for 2 second */
             );
