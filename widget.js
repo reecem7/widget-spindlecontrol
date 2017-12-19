@@ -132,7 +132,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
          */
         init: function() {
             console.log("I am being initted. Thanks.");
-
+            this.spinSetup();
             this.setupUiFromLocalStorage();
             this.btnSetup();
             this.forkSetup();
@@ -146,6 +146,15 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
          * the entire DOM of the widget.
          */
          
+        //Added this for RPM Slider Selector
+        spinSetup: function() {
+            var slider = document.getElementById("myRange");
+            var output = document.getElementById("demo");
+            output.innerHTML = slider.value;
+            slider.oninput = function() {
+            output.innerHTML = this.value;
+            }
+        },
          
         btnSetup: function() {
 
@@ -195,13 +204,14 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
             $('#' + this.id + ' .btn-spindleOn').click(this.onHelloBtnClick.bind(this));
+            $('#' + this.id + ' .btn-spindleOff').click(this.onHelloBtnClick.bind(this));
 
         },
         /**
          * onHelloBtnClick is an example of a button click event callback
          */
           sendCtr: 0,
-        onHelloBtnClick: function(evt) {
+        spindlOnBtnClick: function(evt) {
             var gcode = "G91 G0";
             var speed = document.getElementById('demo').value;
             gcode += "X" + speed;

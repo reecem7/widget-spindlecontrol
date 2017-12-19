@@ -77,8 +77,9 @@
                         <button type="button" class="btn btn-xs btn-default btn-spindleOn" style="margin: 4px 0;">Spindle On
                         </button>
                     </div>
-                     <p>Current Speed: <span id="demo"> </span> RPMs</p>
-                    
+                   <div id="speedCurrent">
+                        <p>Current Speed: <span id="demo2"> </span> RPMs</p>
+                   </div>
                      <div class="">
                         <button type="button" class="btn btn-xs btn-default btn-spindleOff" style="margin: 4px 0;">Spindle Off</button>
                     </div>
@@ -98,16 +99,19 @@
 
         </div>
     </div>
-    
+   <!-- 
     <script>
     var slider = document.getElementById("myRange");
     var output = document.getElementById("demo");
-    output.innerHTML = slider.value;
+    var output2 = document.getElementById("demo2");
 
+    output.innerHTML = slider.value;
+    output2.innerHTML = slider.value;
     slider.oninput = function() {
     output.innerHTML = this.value;
+    output2.innerHTML = slider.value;
     }
 </script>
-    
+    -->
 </body>
 </html>
