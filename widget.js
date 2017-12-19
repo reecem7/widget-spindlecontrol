@@ -213,7 +213,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
          */
           sendCtr: 0,
         spindlOnBtnClick: function(evt) {
-            /*var gcode = "G91 G0";
+            var gcode = "G91 G0";
             var speed = document.getElementById('myRange').value;
             gcode += "X" + speed;
             gcode += "\nG90\n";
@@ -222,11 +222,11 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 D: gcode,
                 Id: "jog" + this.sendCtr
             };
-             */
-             var gcode = "G91 G0 X1 \nG90\n";
+             
+            /* var gcode = "G91 G0 X1 \nG90\n";
              var jsonSend = {
                 D: gcode,
-                Id: "jog" + this.sendCtr};
+                Id: "jog" + this.sendCtr};*/
              chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);          
            // chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", jsonSend);
             //this.sendCtr++;
@@ -235,8 +235,8 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Spindle On",
-                "Spindle speed: "
-                + jsonSend + this.id, 
+                "Spindle speed: " + "RPMs",
+                //+ jsonSend + this.id, 
                 2000 /* show for 2 second */
             );
         },
