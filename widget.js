@@ -204,39 +204,48 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
-            $('#' + this.id + ' .btn-spindleOn').click(this.spindlOnBtnClick.bind(this));
-           // $('#' + this.id + ' .btn-spindleOff').click(this.onHelloBtnClick.bind(this));
+            $('#' + this.id + ' .btn-spindleOn').click(this.spindleOnBtnClick.bind(this));
+            $('#' + this.id + ' .btn-spindleOff').click(this.spindleOffBtnClick.bind(this));
 
         },
         /**
          * onHelloBtnClick is an example of a button click event callback
          */
           sendCtr: 0,
-        spindlOnBtnClick: function(evt) {
-            var gcode = "G91 G0";
+        spindleOnBtnClick: function(evt) {
+            var gcode = "M3 ";
             var speed = document.getElementById('myRange').value;
-            gcode += "X" + speed;
-            gcode += "\nG90\n";
-            //chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);          
-            var jsonSend = {
+            gcode += "S" + speed;
+            //gcode += "\nG90\n";
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);       
+            /*var jsonSend = {
                 D: gcode,
                 Id: "jog" + this.sendCtr
             };
-             
-            /* var gcode = "G91 G0 X1 \nG90\n";
-             var jsonSend = {
-                D: gcode,
-                Id: "jog" + this.sendCtr};*/
-             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);          
-           // chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", jsonSend);
-            //this.sendCtr++;
-          //  if (this.sendCtr > 999999) this.sendCtr = 0;
-            console.log("Spindle on at ----");
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", jsonSend);
+                 this.sendCtr++;
+                 if (this.sendCtr > 999999) this.sendCtr = 0;
+                 */
+           // console.log("Spindle on at ----");
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Spindle On",
-                "Spindle speed: " + "RPMs",
+                "Speed set to: " + speed + " RPMs",
                 //+ jsonSend + this.id, 
+                2000 /* show for 2 second */
+            );
+        },
+            
+        spindleOffBtnClick: function(evt) {
+            var gcode = "M5 ";
+            var speed = document.getElementById('myRange').value;
+            gcode += "S" + speed;
+            //gcode += "\nG90\n";
+             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);          
+            chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "Spindle Off",
+                "Speed set to 0 RPMs",
                 2000 /* show for 2 second */
             );
         },
