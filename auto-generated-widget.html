@@ -28,6 +28,10 @@
     width: 100%; /* Width of the outside container */
 }
 
+.panel-body, .panel-heading {
+    padding: 10px;
+}
+
 /* The slider itself */
 .slider {
     -webkit-appearance: none;  /* Override default CSS styles */
@@ -62,7 +66,31 @@
     background: #4CAF50; /* Green background */
     cursor: pointer; /* Cursor on hover */
 }
+#speedRO{
+    color: grey;
+    font-style: oblique;
+    
+}
+#curSpeedRO{
+    padding-left: 30px;
+    font-style: oblique;
+}
 
+.btn-spindleOn{
+    height: 30px;
+    width: 90px;
+    
+}
+.btn-spindleOff{
+    height:30px;
+    width: 90px;
+    margin-left: 10px;
+}
+
+td  {
+    padding-top:1px;
+    padding-bottom: 5px
+}
     </style>
 
     <script type='text/javascript'>
@@ -220,10 +248,12 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             var slider = document.getElementById("myRange");
             var output = document.getElementById("demo");
             output.innerHTML = slider.value;
-            
+          
             slider.oninput = function() {
             output.innerHTML = this.value;
             }
+            var curSpeed = 0;
+            document.getElementById("demo2").innerHTML = curSpeed;
         },
          
         btnSetup: function() {
@@ -283,9 +313,16 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
           sendCtr: 0,
         spindleOnBtnClick: function(evt) {
             var gcode = "M3 ";
-            var speed = document.getElementById('myRange').value;
+            var speed = document.getElementById('myRange').value; //the slider value is assigned to the speed variable
             gcode += "S" + speed;
-            //gcode += "\nG90\n";
+            //gcode += "\nG90\n"; not needed
+            var curSpeed = document.getElementById("demo2");
+            // Set current speed to the last speed sent to board
+                curSpeed.innerHTML = speed;
+            // allows you to move slider to select new speed without forgetting what current spindle speed is
+            speed.oninput = function() {
+            curSpeed.innerHTML = this.value;
+            }
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);       
             /*var jsonSend = {
                 D: gcode,
@@ -309,7 +346,10 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             var gcode = "M5 ";
             var speed = document.getElementById('myRange').value;
             gcode += "S" + speed;
-            //gcode += "\nG90\n";
+            // set current speed to zero when off button clicked
+            var curSpeed = document.getElementById("demo2"); 
+                curSpeed.innerHTML = 0;
+                //send Gcode to serialport
              chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);          
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
@@ -528,21 +568,19 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 <div class="tab-pane active" id="com-chilipeppr-widget-spindlecontrol-tab1">
                     <p>Use slider to select correct spindle speed and click "Spindle On" to activate.</p>
                     <div id="slidecontainer">
-                      <input type="range" min="5000" max="24000" value="8000" class="slider" id="myRange">
-                        <p>Speed: <span id="demo"> </span> RPMs</p>
-                    </div>
-                    <div class="">
-                        <button type="button" class="btn btn-xs btn-default btn-spindleOn" style="margin: 4px 0;">Spindle On
-                        </button>
-                    </div>
-                   <div id="speedCurrent">
-                        <p>Current Speed: <span id="demo2"> </span> RPMs</p>
-                   </div>
-                     <div class="">
-                        <button type="button" class="btn btn-xs btn-default btn-spindleOff" style="margin: 4px 0;">Spindle Off</button>
+                      <input type="range" min="5000" max="24000" value="8000" step="100" class="slider" id="myRange">
+                        <table>
+                            <tr>
+                               <td><div id="speedRO">Speed: <span id="demo"></span> RPMs </div></td> 
+                               <td><div id="curSpeedRO"> Current Speed: <span id="demo2"> </span> RPMs</div></td> 
+                            </tr>
+                            <tr>
+                                <td><button type="button" class="btn btn-xs btn-default btn-spindleOn" style="margin: 4px 0;">Spindle On</button></td>
+                                <td><button type="button" class="btn btn-xs btn-default btn-spindleOff">Spindle Off</button></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-
                 <!-- Tab 2 -->
                 <div class="tab-pane" id="com-chilipeppr-widget-spindlecontrol-tab2">
                     <p>Speeds and feeds references.</p>

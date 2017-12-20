@@ -12,6 +12,10 @@
     width: 100%; /* Width of the outside container */
 }
 
+.panel-body, .panel-heading {
+    padding: 10px;
+}
+
 /* The slider itself */
 .slider {
     -webkit-appearance: none;  /* Override default CSS styles */
@@ -45,4 +49,29 @@
     height: 25px; /* Slider handle height */
     background: #4CAF50; /* Green background */
     cursor: pointer; /* Cursor on hover */
+}
+#speedRO{
+    color: grey;
+    font-style: oblique;
+    
+}
+#curSpeedRO{
+    padding-left: 30px;
+    font-style: oblique;
+}
+
+.btn-spindleOn{
+    height: 30px;
+    width: 90px;
+    
+}
+.btn-spindleOff{
+    height:30px;
+    width: 90px;
+    margin-left: 10px;
+}
+
+td  {
+    padding-top:1px;
+    padding-bottom: 5px
 }

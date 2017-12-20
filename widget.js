@@ -151,10 +151,12 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             var slider = document.getElementById("myRange");
             var output = document.getElementById("demo");
             output.innerHTML = slider.value;
-            
+          
             slider.oninput = function() {
             output.innerHTML = this.value;
             }
+            var curSpeed = 0;
+            document.getElementById("demo2").innerHTML = curSpeed;
         },
          
         btnSetup: function() {
@@ -214,9 +216,16 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
           sendCtr: 0,
         spindleOnBtnClick: function(evt) {
             var gcode = "M3 ";
-            var speed = document.getElementById('myRange').value;
+            var speed = document.getElementById('myRange').value; //the slider value is assigned to the speed variable
             gcode += "S" + speed;
-            //gcode += "\nG90\n";
+            //gcode += "\nG90\n"; not needed
+            var curSpeed = document.getElementById("demo2");
+            // Set current speed to the last speed sent to board
+                curSpeed.innerHTML = speed;
+            // allows you to move slider to select new speed without forgetting what current spindle speed is
+            speed.oninput = function() {
+            curSpeed.innerHTML = this.value;
+            }
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);       
             /*var jsonSend = {
                 D: gcode,
@@ -240,7 +249,10 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             var gcode = "M5 ";
             var speed = document.getElementById('myRange').value;
             gcode += "S" + speed;
-            //gcode += "\nG90\n";
+            // set current speed to zero when off button clicked
+            var curSpeed = document.getElementById("demo2"); 
+                curSpeed.innerHTML = 0;
+                //send Gcode to serialport
              chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);          
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',

@@ -70,21 +70,19 @@
                 <div class="tab-pane active" id="com-chilipeppr-widget-spindlecontrol-tab1">
                     <p>Use slider to select correct spindle speed and click "Spindle On" to activate.</p>
                     <div id="slidecontainer">
-                      <input type="range" min="5000" max="24000" value="8000" class="slider" id="myRange">
-                        <p>Speed: <span id="demo"> </span> RPMs</p>
-                    </div>
-                    <div class="">
-                        <button type="button" class="btn btn-xs btn-default btn-spindleOn" style="margin: 4px 0;">Spindle On
-                        </button>
-                    </div>
-                   <div id="speedCurrent">
-                        <p>Current Speed: <span id="demo2"> </span> RPMs</p>
-                   </div>
-                     <div class="">
-                        <button type="button" class="btn btn-xs btn-default btn-spindleOff" style="margin: 4px 0;">Spindle Off</button>
+                      <input type="range" min="5000" max="24000" value="8000" step="100" class="slider" id="myRange">
+                        <table>
+                            <tr>
+                               <td><div id="speedRO">Speed: <span id="demo"></span> RPMs </div></td> 
+                               <td><div id="curSpeedRO"> Current Speed: <span id="demo2"> </span> RPMs</div></td> 
+                            </tr>
+                            <tr>
+                                <td><button type="button" class="btn btn-xs btn-default btn-spindleOn" style="margin: 4px 0;">Spindle On</button></td>
+                                <td><button type="button" class="btn btn-xs btn-default btn-spindleOff">Spindle Off</button></td>
+                            </tr>
+                        </table>
                     </div>
                 </div>
-
                 <!-- Tab 2 -->
                 <div class="tab-pane" id="com-chilipeppr-widget-spindlecontrol-tab2">
                     <p>Speeds and feeds references.</p>
