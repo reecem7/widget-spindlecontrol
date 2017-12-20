@@ -56,7 +56,7 @@
     
 }
 #curSpeedRO{
-    padding-left: 30px;
+    float: right;
     font-style: oblique;
 }
 
@@ -68,7 +68,7 @@
 .btn-spindleOff{
     height:30px;
     width: 90px;
-    margin-left: 10px;
+   
 }
 
 td  {
