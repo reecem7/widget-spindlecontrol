@@ -70,7 +70,7 @@
     opacity:0.7;
     font-style: oblique;
     /*font-size: small;*/
-    font-size: auto;
+    
     
 }
 #curSpeedRO{
@@ -93,6 +93,11 @@ td  {
     padding-top:1px;
     padding-bottom: 1px
 }
+
+p { 
+    font-size: smaller
+}
+
     </style>
 
     <script type='text/javascript'>
@@ -568,20 +573,18 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
     
                 <!-- Tab 1 -->
                 <div class="tab-pane active" id="com-chilipeppr-widget-spindlecontrol-tab1">
-                    <p>Use slider to select correct spindle speed and click "Spindle On" to activate.</p>
                     <div id="slidecontainer">
-                      <input type="range" min="5000" max="24000" value="8000" step="100" class="slider" id="myRange">
-                        <table>
-                            <tr>
-                               <td><div id="curSpeedRO">Current Speed: <span id="demo2"> </span> RPMs</div></td> 
-                               <td><div id="speedRO">Speed: <span id="demo"></span> RPMs </div></td> 
-                               
-                            </tr>
-                            <tr>
-                                <td><button type="button" class="btn btn-xs btn-default btn-spindleOn" >Spindle On</button>
-                                <button type="button" class="btn btn-xs btn-default btn-spindleOff">Spindle Off</button></td>
-                            </tr>
-                        </table>
+                        <div id="speedRO">Speed: <span id="demo"></span> RPMs </div></td> 
+                          <input type="range" min="5000" max="24000" value="8000" step="100" class="slider" id="myRange">
+                            <table>
+                                <tr>
+                                   <td><div id="curSpeedRO">Current Speed: <span id="demo2"> </span> RPMs</div></td> 
+                                </tr>
+                                <tr>
+                                    <td><button type="button" class="btn btn-xs btn-default btn-spindleOn" >Spindle On</button>
+                                    <button type="button" class="btn btn-xs btn-default btn-spindleOff">Spindle Off</button></td>
+                                </tr>
+                            </table>
                     </div>
                 </div>
                 <!-- Tab 2 -->
