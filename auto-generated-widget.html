@@ -565,7 +565,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 <li class="active"><a href="#com-chilipeppr-widget-spindlecontrol-tab1" role="tab" data-toggle="tab">Control</a>
                 </li>
                 <li><a href="#com-chilipeppr-widget-spindlecontrol-tab2" role="tab" data-toggle="tab">Speeds & Feeds</a></li>
-                <li><a href="#com-chilipeppr-widget-spindlecontrol-tab3" role="tab" data-toggle="tab">Tab 3</a></li>
+                <li><a href="#com-chilipeppr-widget-spindlecontrol-tab3" role="tab" data-toggle="tab">Settings</a></li>
             </ul>
             <!-- Tab panes -->
 
@@ -595,6 +595,13 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 <!-- Tab 3 -->
                 <div class="tab-pane" id="com-chilipeppr-widget-spindlecontrol-tab3">
                     <p>This is the content of tab 3.</p>
+                    <form action="/action_page.php">
+                      Spindle Min (RPMs):<br>
+                      <input type="text" name="spinMin" value="0"><br>
+                      Spindle Max (RPMs):<br>
+                      <input type="text" name="spinMax" value="24000"><br><br>
+                      <input type="submit">
+                    </form>
                 </div>
 
             </div>
