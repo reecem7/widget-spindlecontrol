@@ -70,10 +70,12 @@
     opacity:0.7;
     font-style: oblique;
     /*font-size: small;*/
+    font-size: auto;
     
 }
 #curSpeedRO{
     font-style: oblique;
+    font-size-adjust: auto;
 }
 
 .btn-spindleOn{
@@ -575,7 +577,8 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                                <td><div id="curSpeedRO">Current Speed: <span id="demo2"> </span> RPMs</div></td> 
                             </tr>
                             <tr>
-                                <td><button type="button" class="btn btn-xs btn-default btn-spindleOn" >Spindle On</button><button type="button" class="btn btn-xs btn-default btn-spindleOff">Spindle Off</button></td>
+                                <td><button type="button" class="btn btn-xs btn-default btn-spindleOn" >Spindle On</button>
+                                <button type="button" class="btn btn-xs btn-default btn-spindleOff">Spindle Off</button></td>
                             </tr>
                         </table>
                     </div>
