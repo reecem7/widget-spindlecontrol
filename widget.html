@@ -69,14 +69,14 @@
                 <!-- Tab 1 -->
                 <div class="tab-pane active" id="com-chilipeppr-widget-spindlecontrol-tab1">
                     <div id="slidecontainer">
-                        <div id="speedRO">Speed: <span id="demo"></span> rpm </div></td> 
+                        <div id="speedRO">Speed: <span id="demo"></span> rpm </div>
                           <input type="range" min="5000" max="24000" value="8000" step="100" class="slider" id="myRange">
                             <table>
                                 <th>
                                    <div id="curSpeedRO">Current Speed: <span id="demo2"> </span> rpm</div>
                                 </th>
                                 <tr>
-                                    <td><button type="button" class="btn btn-xs btn-default btn-spindleOn" >Spindle On</button>
+                                    <td><button type="button" class="btn btn-xs btn-default btn-spindleOn-CW">Spindle On-CW</button><button type="button" class="btn btn-xs btn-default btn-spindleOn-CCW">Spindle On-CCW</button>
                                     <button type="button" class="btn btn-xs btn-default btn-spindleOff">Spindle Off</button></td>
                                 </tr>
                             </table>
@@ -84,12 +84,24 @@
                 </div>
                 <!-- Tab 2 -->
                 <div class="tab-pane" id="com-chilipeppr-widget-spindlecontrol-tab2">
-                    <p>Speeds and feeds references.</p>
+                    <span class="bulletLists sf"> Speeds and feeds references:
+                        <ul>
+                            <li><a href = "https://en.wikipedia.org/wiki/Speeds_and_feeds" target="_blank">Wiki References</a></li>
+                            <li><a href = "https://littlemachineshop.com/mobile/speeds_feeds.php" target="_blank">Calculator</a></li>
+                        </ul>
+                    </span>
+					<span class="bulletLists mtrl">Materials
+				    	<ul>
+    					  <li>aluminum</il>
+    				      <li>steel</il>
+    					  <li>brass</il>
+    					  <li>wood</il>
+					    </ul></span>
                 </div>
 
                 <!-- Tab 3 -->
                 <div class="tab-pane" id="com-chilipeppr-widget-spindlecontrol-tab3">
-                    <p>Set the minimum and maximum values for the speed control slider.</p>
+                    <p>Set the minimum and maximum values for the speed control slider. The slider moves in increments of 100. </p>
                    
                     <table>
                         <th> Min. Spindle Speed rpm</th>

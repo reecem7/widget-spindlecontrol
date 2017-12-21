@@ -159,11 +159,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             document.getElementById("demo2").innerHTML = curSpeed;
         },
         
-        //assign new min and max spindle speeds from tab 3 to slider on tab 1
-        rpmRangeInput: function() {
-            
-            
-        },
+  
          
         btnSetup: function() {
 
@@ -212,7 +208,8 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             // Init Hello World 2 button on Tab 1. Notice the use
             // of the slick .bind(this) technique to correctly set "this"
             // when the callback is called
-            $('#' + this.id + ' .btn-spindleOn').click(this.spindleOnBtnClick.bind(this));
+            $('#' + this.id + ' .btn-spindleOn-CW').click(this.spindleOnCwBtnClick.bind(this));
+            $('#' + this.id + ' .btn-spindleOn-CCW').click(this.spindleOnCcwBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleOff').click(this.spindleOffBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleMin').click(this.minSpeedBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleMax').click(this.maxSpeedBtnClick.bind(this));
@@ -222,7 +219,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
          * onHelloBtnClick is an example of a button click event callback
          */
           sendCtr: 0,
-        spindleOnBtnClick: function(evt) {
+        spindleOnCwBtnClick: function(evt) {
             var gcode = "M3 ";
             var speed = document.getElementById('myRange').value; //the slider value is assigned to the speed variable
             gcode += "S" + speed;
@@ -246,7 +243,39 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
            // console.log("Spindle on at ----");
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "Spindle On",
+                "Spindle On: Clockwise",
+                "Speed set to: " + speed + " rpm",
+                //+ jsonSend + this.id, 
+                3000 /* show for 2 second */
+            );
+        },
+        
+             sendCtr: 0,
+        spindleOnCcwBtnClick: function(evt) {
+            var gcode = "M4 ";
+            var speed = document.getElementById('myRange').value; //the slider value is assigned to the speed variable
+            gcode += "S" + speed;
+            //gcode += "\nG90\n"; not needed
+            var curSpeed = document.getElementById("demo2");
+            // Set current speed to the last speed sent to board
+                curSpeed.innerHTML = speed;
+            // allows you to move slider to select new speed without forgetting what current spindle speed is
+            speed.oninput = function() {
+            curSpeed.innerHTML = this.value;
+            }
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);       
+            /*var jsonSend = {
+                D: gcode,
+                Id: "jog" + this.sendCtr
+            };
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", jsonSend);
+                 this.sendCtr++;
+                 if (this.sendCtr > 999999) this.sendCtr = 0;
+                 */
+           // console.log("Spindle on at ----");
+            chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "Spindle On: Counter-Clockwise" ,
                 "Speed set to: " + speed + " rpm",
                 //+ jsonSend + this.id, 
                 3000 /* show for 2 second */
@@ -271,44 +300,46 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },    
             
         minSpeedBtnClick: function(evt) {
-            var slidera = document.getElementById('myRange'); //find current slider element
-            var minSpeed = document.getElementById('minSpeed').value; //get new min speed from tab 3 text-input 
-            if(minSpeed >= slidera.max){
+            var slider = document.getElementById('myRange');            //find current slider element
+            var minSpeed = document.getElementById('minSpeed').value;   //get new min speed from tab 3 text-input 
+            minSpeed = Math.ceil(minSpeed/100)*100;                     //round speed-up to nearest 100
+            var lessThanMax = slider.max;                               //find the value of current slider minimum
+            if(minSpeed >= lessThanMax){
                   chilipeppr.publish(
+                      
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "Speed Control Slider" ,
+                "Error: Invalid Input" ,
                 "Min speed must be less than current max speed!",
-                3000 )
+                2500 )
             } else {
-                     slidera.min = minSpeed; //set the slider's min attribute to the new speed value
+                slider.min = minSpeed; //set the slider's min attribute to the new speed value
                 chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Speed Control Slider" ,
                 "New minimum speed: " + minSpeed + " rpm",
-                3000 /* show for 2 second */
+                2500 /* show for 2 second */
             )}
             
         },
             maxSpeedBtnClick: function(evt) {
-            var slider = document.getElementById('myRange'); //find current slider element
-            var maxSpeed = document.getElementById('maxSpeed').value; //get new max speed from tab 3 text-input 
-               /* if(maxSpeed <= slider.min){
+            var slider = document.getElementById('myRange');            //find current slider element
+            var maxSpeed = document.getElementById('maxSpeed').value;   //get new max speed from tab 3 text-input 
+            maxSpeed = Math.ceil(maxSpeed/100)*100;                     //round speed-up to nearest 100
+            var greaterThanMin = slider.min;                            //find the value of current slider minimum
+               if(maxSpeed <= greaterThanMin){
                   chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "Speed Control Slider" ,
+                "Error: Invalid Input" ,
                 "Max speed must be greater than current min speed!",
-                3000 );
+                2500 );
             } else {
-            */
-           slider.max = maxSpeed; //set the slider's max attribute to the new speed value
-            chilipeppr.publish(
+                slider.max = maxSpeed; //set the slider's max attribute to the new speed value
+                chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Speed Control Slider" ,
                 "New maximum speed: " + maxSpeed + " rpm",
-                3000 /* show for 2 second */
-            )
-                
-           // }
+                2500 /* show for 2 second */
+            )}
         },
   
         /*
