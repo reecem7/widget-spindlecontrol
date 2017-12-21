@@ -376,41 +376,44 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },    
             
         minSpeedBtnClick: function(evt) {
-            var slider = document.getElementById('myRange'); //find current slider element
+            var slidera = document.getElementById('myRange'); //find current slider element
             var minSpeed = document.getElementById('minSpeed').value; //get new min speed from tab 3 text-input 
-            if(minSpeed >= slider.max){
+            if(minSpeed >= slidera.max){
                   chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Speed Control Slider" ,
                 "Min speed must be less than current max speed!",
-                3000 );
+                3000 )
             } else {
-           slider.min = minSpeed; //set the slider's min attribute to the new speed value
-            chilipeppr.publish(
+                     slidera.min = minSpeed; //set the slider's min attribute to the new speed value
+                chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Speed Control Slider" ,
                 "New minimum speed: " + minSpeed + " rpm",
                 3000 /* show for 2 second */
-            );}
+            )}
             
         },
             maxSpeedBtnClick: function(evt) {
             var slider = document.getElementById('myRange'); //find current slider element
             var maxSpeed = document.getElementById('maxSpeed').value; //get new max speed from tab 3 text-input 
-                if(maxSpeed <= slider.min){
+               /* if(maxSpeed <= slider.min){
                   chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Speed Control Slider" ,
                 "Max speed must be greater than current min speed!",
                 3000 );
             } else {
+            */
            slider.max = maxSpeed; //set the slider's max attribute to the new speed value
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "ERROR: Speed Control Slider" ,
-                "New minimum speed: " + maxSpeed + " rpm",
+                "Speed Control Slider" ,
+                "New maximum speed: " + maxSpeed + " rpm",
                 3000 /* show for 2 second */
-            );}
+            )
+                
+           // }
         },
   
         /*
