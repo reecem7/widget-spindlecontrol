@@ -10,6 +10,7 @@
 
 #slidecontainer {
     width: 100%; /* Width of the outside container */
+    padding-top: 5px;
 }
 
 .panel-body, .panel-heading {
@@ -79,5 +80,5 @@ td  {
 }
 
 p { 
-    font-size: smaller
+    font-size: medium
 }

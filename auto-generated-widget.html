@@ -26,6 +26,7 @@
 
 #slidecontainer {
     width: 100%; /* Width of the outside container */
+    padding-top: 5px;
 }
 
 .panel-body, .panel-heading {
@@ -95,7 +96,7 @@ td  {
 }
 
 p { 
-    font-size: smaller
+    font-size: medium
 }
 
     </style>
@@ -236,7 +237,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
          */
         init: function() {
             console.log("I am being initted. Thanks.");
-            this.spinSetup();
+            this.sliderSetup();
             this.setupUiFromLocalStorage();
             this.btnSetup();
             this.forkSetup();
@@ -250,8 +251,8 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
          * the entire DOM of the widget.
          */
          
-        //Added this for RPM Slider Selector
-        spinSetup: function() {
+        //RPM slider selector setup
+        sliderSetup: function() {
             var slider = document.getElementById("myRange");
             var output = document.getElementById("demo");
             output.innerHTML = slider.value;
@@ -261,6 +262,12 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             }
             var curSpeed = 0;
             document.getElementById("demo2").innerHTML = curSpeed;
+        },
+        
+        //assign new min and max spindle speeds from tab 3 to slider on tab 1
+        rpmRangeInput: function() {
+            
+            
         },
          
         btnSetup: function() {
@@ -312,6 +319,8 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             // when the callback is called
             $('#' + this.id + ' .btn-spindleOn').click(this.spindleOnBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleOff').click(this.spindleOffBtnClick.bind(this));
+            $('#' + this.id + ' .btn-spindleMin').click(this.minSpeedBtnClick.bind(this));
+            $('#' + this.id + ' .btn-spindleMax').click(this.maxSpeedBtnClick.bind(this));
 
         },
         /**
@@ -343,9 +352,9 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Spindle On",
-                "Speed set to: " + speed + " RPMs",
+                "Speed set to: " + speed + " rpm",
                 //+ jsonSend + this.id, 
-                2000 /* show for 2 second */
+                3000 /* show for 2 second */
             );
         },
             
@@ -361,10 +370,49 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Spindle Off",
-                "Speed set to 0 RPMs",
-                2000 /* show for 2 second */
+                "Speed set to: 0 rpm",
+                3000 /* show for 2 second */
             );
+        },    
+            
+        minSpeedBtnClick: function(evt) {
+            var slider = document.getElementById('myRange'); //find current slider element
+            var minSpeed = document.getElementById('minSpeed').value; //get new min speed from tab 3 text-input 
+            if(minSpeed >= slider.max){
+                  chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "Speed Control Slider" ,
+                "Min speed must be less than current max speed!",
+                3000 );
+            } else {
+           slider.min = minSpeed; //set the slider's min attribute to the new speed value
+            chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "Speed Control Slider" ,
+                "New minimum speed: " + minSpeed + " rpm",
+                3000 /* show for 2 second */
+            );}
+            
         },
+            maxSpeedBtnClick: function(evt) {
+            var slider = document.getElementById('myRange'); //find current slider element
+            var maxSpeed = document.getElementById('maxSpeed').value; //get new max speed from tab 3 text-input 
+                if(maxSpeed <= slider.min){
+                  chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "Speed Control Slider" ,
+                "Max speed must be greater than current min speed!",
+                3000 );
+            } else {
+           slider.max = maxSpeed; //set the slider's max attribute to the new speed value
+            chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "ERROR: Speed Control Slider" ,
+                "New minimum speed: " + maxSpeed + " rpm",
+                3000 /* show for 2 second */
+            );}
+        },
+  
         /*
         //added below
         sendCtr: 0,
@@ -574,12 +622,12 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 <!-- Tab 1 -->
                 <div class="tab-pane active" id="com-chilipeppr-widget-spindlecontrol-tab1">
                     <div id="slidecontainer">
-                        <div id="speedRO">Speed: <span id="demo"></span> RPMs </div></td> 
+                        <div id="speedRO">Speed: <span id="demo"></span> rpm </div></td> 
                           <input type="range" min="5000" max="24000" value="8000" step="100" class="slider" id="myRange">
                             <table>
-                                <tr>
-                                   <td><div id="curSpeedRO">Current Speed: <span id="demo2"> </span> RPMs</div></td> 
-                                </tr>
+                                <th>
+                                   <div id="curSpeedRO">Current Speed: <span id="demo2"> </span> rpm</div>
+                                </th>
                                 <tr>
                                     <td><button type="button" class="btn btn-xs btn-default btn-spindleOn" >Spindle On</button>
                                     <button type="button" class="btn btn-xs btn-default btn-spindleOff">Spindle Off</button></td>
@@ -594,14 +642,18 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
 
                 <!-- Tab 3 -->
                 <div class="tab-pane" id="com-chilipeppr-widget-spindlecontrol-tab3">
-                    <p>This is the content of tab 3.</p>
-                    <form action="/action_page.php">
-                      Spindle Min (RPMs):<br>
-                      <input type="text" name="spinMin" value="0"><br>
-                      Spindle Max (RPMs):<br>
-                      <input type="text" name="spinMax" value="24000"><br><br>
-                      <input type="submit">
-                    </form>
+                    <p>Set the minimum and maximum values for the speed control slider.</p>
+                   
+                    <table>
+                        <th> Min. Spindle Speed rpm</th>
+                        <tr>
+                           <td><input type="number" name="" value=5000 id="minSpeed" /><button type="button" class="btn btn-xs btn-default btn-spindleMin">Set Min</button></td> 
+                        </tr>
+                           <th> Max. Spindle Speed rpm</th>
+                        <tr>
+                           <td><input type="number" name="" value=24000 id="maxSpeed" /><button type="button" class="btn btn-xs btn-default btn-spindleMax">Set Max</button></td> 
+                        </tr>
+                    </table>
                 </div>
 
             </div>
