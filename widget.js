@@ -213,7 +213,8 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             $('#' + this.id + ' .btn-spindleOff').click(this.spindleOffBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleMin').click(this.minSpeedBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleMax').click(this.maxSpeedBtnClick.bind(this));
-
+            $('#' + this.id + ' .btn-spindleEngage').click(this.spindleEngageBtnClick.bind(this));
+           // $('#' + this.id + ' .btn-spindleDisengage').click(this.spindleDisengageBtnClick.bind(this));
         },
         /**
          * onHelloBtnClick is an example of a button click event callback
@@ -340,6 +341,16 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 "New maximum speed: " + maxSpeed + " rpm",
                 2500 /* show for 2 second */
             )}
+        },
+            spindleEngageBtnClick: function(evt) {
+            var cmd = "2";
+             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", cmd); 
+              chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "Spindle Control" , "cmd " 
+                  + cmd + ": Engaging Spindle",
+                2500 /* show for 2 second */
+            );
         },
   
         /*

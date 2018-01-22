@@ -57,10 +57,10 @@
         <div class="panel-body">
             <!-- Nav tabs -->
             <ul class="nav nav-tabs" role="tablist">
-                <li class="active"><a href="#com-chilipeppr-widget-spindlecontrol-tab1" role="tab" data-toggle="tab">Control</a>
-                </li>
+                <li class="active"><a href="#com-chilipeppr-widget-spindlecontrol-tab1" role="tab" data-toggle="tab">Control</a></li>
                 <li><a href="#com-chilipeppr-widget-spindlecontrol-tab2" role="tab" data-toggle="tab">Speeds & Feeds</a></li>
                 <li><a href="#com-chilipeppr-widget-spindlecontrol-tab3" role="tab" data-toggle="tab">Settings</a></li>
+                <li><a href="#com-chilipeppr-widget-spindlecontrol-tab4" role="tab" data-toggle="tab">Auto Tool Change</a></li>
             </ul>
             <!-- Tab panes -->
 
@@ -114,7 +114,21 @@
                         </tr>
                     </table>
                 </div>
-
+                <!-- Tab 4 -->
+                <div class="tab-pane" id="com-chilipeppr-widget-spindlecontrol-tab4">
+                    <p>Set .... </p>
+                   
+                    <table>
+                        <th>Engage Spindle Shaft</th>
+                        <tr>
+                           <td><button type="button" class="btn btn-xs btn-default btn-spindleEngage">G0</button></td> 
+                        </tr>
+                           <th>Disengage Spindle Shaft</th>
+                        <tr>
+                           <td><button type="button" class="btn btn-xs btn-default btn-spindleDisengage">UnGo</button></td> 
+                        </tr>
+                    </table>
+                </div>
             </div>
 
         </div>
