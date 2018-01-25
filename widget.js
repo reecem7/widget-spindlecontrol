@@ -347,7 +347,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             )}
         },
             tcPositionStartBtnClick: function(evt) {
-            var cmd = ['G53 X20 F500'];
+            var cmd = ['G53 X20 F800', 'G53 Y15 F400'];
            // var cmd2 = "G53 Y10 F500";
             
             cmd.forEach(function(item, index, array) {
