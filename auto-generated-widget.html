@@ -459,8 +459,12 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             )}
         },
             tcPositionStartBtnClick: function(evt) {
-            var cmd = "G53 X10 Y10 Z-10";
-             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", cmd); 
+            var cmd1 = "G53 X20 F500";
+            var cmd2 = "G53 Y10 F500";
+            
+             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", cmd1); 
+             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", cmd2);
+             
               chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Spindle Control" , "Moving to Tool Change Start Position" 
