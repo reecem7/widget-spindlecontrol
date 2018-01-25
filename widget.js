@@ -213,6 +213,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             $('#' + this.id + ' .btn-spindleOff').click(this.spindleOffBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleMin').click(this.minSpeedBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleMax').click(this.maxSpeedBtnClick.bind(this));
+            $('#' + this.id + ' .btn-tcStartPosition').click(this.tcPositionStartBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleEngage').click(this.spindleEngageBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleDisengage').click(this.spindleDisengageBtnClick.bind(this)); 
             $('#' + this.id + ' .btn-colletLoosen').click(this.colletLoosenBtnClick.bind(this));
@@ -345,6 +346,17 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 2500 /* show for 2 second */
             )}
         },
+            tcPositionStartBtnClick: function(evt) {
+            var cmd = "G53 X10 Y10 Z-10";
+             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", cmd); 
+              chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "Spindle Control" , "Moving to Tool Change Start Position" 
+                  ,
+                2000 /* show for 2 second */
+            );
+        },
+            
             spindleEngageBtnClick: function(evt) {
             var cmd = "2";
             var jsonCmd = {"P":"/dev/ttyACM0","Data":[{"D":"2\n","Id":"console1"}]};
