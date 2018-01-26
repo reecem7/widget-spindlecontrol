@@ -347,7 +347,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             )}
         },
             tcPositionStartBtnClick: function(evt) {
-            var cmd = ["\nG28.2 X0 Y0 Z0", "\nG53 X279.2 Y16.6 F1000", "\nG53 Z-40 F600"];
+            var cmd = ["\nG28.2 X0 Y0 Z0\n", "\nG53 X279.2 Y16.6 F1000\n", "\nG53 Z-40 F600\n"];
             //var arduinoCmd = ["5"];
            // var cmd2 = "G53 Y10 F500";
             
