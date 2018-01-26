@@ -349,7 +349,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             )}
         },
             tcStartPositionBtnClick: function(evt) {
-            var cmd = ["\nG53 G1 X279.2 Y16.6 F800\n", "\nG53 G1 Z-40 F500\n"];
+            var cmd = ["\nG53 G1 X279.2 Y16.6 F800\n", "\nG53 G1 Z-50 F500\n"];
             //var cmd = { "P": "/dev/ttyUSB0", "Data": [ { "D": "G53 G1 X25 Y25 F600\n", "Id": "222" }] };
            // var cmd =  {P: "/dev/ttyUSB0", D: "G1 x10 F600\n", Id: "222" };
             //var jsonSend = { "P": "/dev/ttyUSB0", "Data": [ { "D": " G53 X10 F600\n", "Id": "222" } ] };
@@ -365,7 +365,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
             //move to point where collet just makes contact with wrench head
               tcColletAlignBtnClick: function(evt) {
-            var cmd = ["\nG53 G1 Z-80.4 F50\n"]; //collet should have just made contact with wrench head
+            var cmd = ["\nG53 G1 Z-80.7 F50\n"]; //collet should have just made contact with wrench head
             cmd.forEach(function(item, index, array) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
            });
