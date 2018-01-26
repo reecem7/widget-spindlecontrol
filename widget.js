@@ -405,7 +405,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         
         tcColletLoosenBtnClick: function(evt) {
             var loosenNut = "4";                                                                             
-            for(var i=0; i<10;  i++){
+            for(var i=0; i<12;  i++){
                 chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNut + "\n");
             }  
      
