@@ -374,8 +374,9 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             
             spindleEngageBtnClick: function(evt) {
             //var cmd = "2";
-            //var jsonCmd = "/dev/ttyACM0","Data":[{"D":"2\n","Id":"console1"}]};
-            var jsonCmd = "Send /dev/ttyACM0 2";
+           // var jsonCmd = sendjson {"P":"/dev/ttyACM0","Data":[{"D":"3\n","Id":"console0"}]}
+            var jsonCmd = {"P":"/dev/ttyACM0","Data":[{"D":"3\n","Id":"console0"}]};
+           // var jsonCmd = "Send /dev/ttyACM0 2";
              chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonCmd); 
               chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
