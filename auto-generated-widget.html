@@ -485,13 +485,9 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
             
             spindleEngageBtnClick: function(evt) {
-            //var cmd = "2";
-            //var jsonCmd =  { "P": "/dev/ttyACM0", "Data": [ { "D": "3"}] };
-            //jsonCmd =+ "sendjson";
-            //var jsonCmd = "{"P":"/dev/ttyACM0","Data":[{"D":"3\n","Id":"console0"}]}"; //get response [object object]
-            //var jsonCmd = "/dev/ttyACM0 2";
-            // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonCmd); 
-             chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 2\n"); 
+             //var cmd = "2";
+             //chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 2\n"); 
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 2\n");
             // chilipeppr.publish("/com-chilipeppr-widget-spconsole/send", jsonCmd); 
 
               chilipeppr.publish(
@@ -504,7 +500,8 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         
            spindleDisengageBtnClick: function(evt) {
             var cmd = "3";
-             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", cmd); 
+             chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0" + cmd + "\n");
+        
               chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "Spindle Control" , "cmd " 
