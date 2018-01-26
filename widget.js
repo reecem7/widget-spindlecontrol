@@ -349,7 +349,15 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             tcPositionStartBtnClick: function(evt) {
             //var cmd = ["\nG28.2 X0 Y0 Z0\n", "\nG53 X279.2 Y16.6 F1000\n", "\nG53 Z-40 F600\n"];
             //var cmd = { "P": "/dev/ttyUSB0", "Data": [ { "D": "G53 G1 X25 Y25 F600\n", "Id": "222" }] };
-            var cmd = { "P": "/dev/ttyUSB0", "Data": [ { "D": "G53 G1 x10 F600\n", "Id": "222" } ] };
+            var cmd =  {"D": "G53 G1 x10 F600\n", "Id": "222" };
+             /*var jsonSend = {
+                D: gcode,
+                Id: "jog" + this.sendCtr
+            };
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", jsonSend);
+                 this.sendCtr++;
+                 if (this.sendCtr > 999999) this.sendCtr = 0;
+                 */
             //var arduinoCmd = ["5"];
            // var cmd2 = "G53 Y10 F500";
             
