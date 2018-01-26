@@ -461,7 +461,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             )}
         },
             tcStartPositionBtnClick: function(evt) {
-            var cmd = ["\nG53 X279.2 Y16.6 F800\n", "\nG53 Z-40 F600\n"];
+            var cmd = ["\nG53 G1 X279.2 Y16.6 F800\n", "\nG53 G1 Z-40 F500\n"];
             //var cmd = { "P": "/dev/ttyUSB0", "Data": [ { "D": "G53 G1 X25 Y25 F600\n", "Id": "222" }] };
            // var cmd =  {P: "/dev/ttyUSB0", D: "G1 x10 F600\n", Id: "222" };
             //var jsonSend = { "P": "/dev/ttyUSB0", "Data": [ { "D": " G53 X10 F600\n", "Id": "222" } ] };
@@ -477,7 +477,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
             //move to point where collet just makes contact with wrench head
               tcColletAlignBtnClick: function(evt) {
-            var cmd = ["\nG53 Z-80.4 F10\n"]; //collet should have just made contact with wrench head
+            var cmd = ["\nG53 G1 Z-80.4 F50\n"]; //collet should have just made contact with wrench head
             cmd.forEach(function(item, index, array) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
            });
@@ -490,7 +490,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
                 //iff aligned properly move collet until full dock
             tcColletDockBtnClick: function(evt) {
-            var cmd = ["\nG53 Z-82.2 F50\n"]; //move to engage bottom portion of collet, leaving room for it to move down as it is loosened
+            var cmd = ["\nG53 G1 Z-82.2 F30\n"]; //move to engage bottom portion of collet, leaving room for it to move down as it is loosened
             //execute loosen command ten times or until you heard the tool fall and make contact with the magnet
             //move up to z-40
             //disengage spindle shaft wrench
