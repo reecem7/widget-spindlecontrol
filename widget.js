@@ -354,7 +354,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             
             //cmd.forEach(function(item, index, array) {
             //console.log(item, index);
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", cmd);
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonsend", cmd);
            // });
            /* arduinoCmd.forEach(function(item, index, array) {
             //console.log(item, index);
