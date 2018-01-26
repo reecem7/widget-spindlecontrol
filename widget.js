@@ -372,7 +372,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             cmd.forEach(function(item, index, array) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
            });
-           for(var i=0; i<26;  i++){
+           for(var i=0; i<23;  i++){
             chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNutCTS + "\n");
            }
             chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNutBackoff + "\n");
