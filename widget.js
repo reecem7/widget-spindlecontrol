@@ -216,6 +216,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             $('#' + this.id + ' .btn-tcStartPosition').click(this.tcStartPositionBtnClick.bind(this));
             $('#' + this.id + ' .btn-tcColletAlign').click(this.tcColletAlignBtnClick.bind(this));
             $('#' + this.id + ' .btn-tcColletDock').click(this.tcColletDockBtnClick.bind(this));
+            $('#' + this.id + ' .btn-tcColletLoosen').click(this.tcColletLoosenBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleEngage').click(this.spindleEngageBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleDisengage').click(this.spindleDisengageBtnClick.bind(this)); 
             $('#' + this.id + ' .btn-colletLoosen').click(this.colletLoosenBtnClick.bind(this));
@@ -365,37 +366,32 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
             //move to point where collet just makes contact with wrench head
               tcColletAlignBtnClick: function(evt) {
-            var cmd = ["\nG53 G1 Z-81 F80\n", "\n!\n", "\n!\n", "\n!\n", "\n!\n", "\n~\n", "\nG53 G1 Z-82.2\n"]; //collet should have just made contact with wrench head
-            var loosenNutCTS = "4";                                                                             // couple feedholds to pause movement until wrench rotation stops and then start again
-            var loosenNutBackoff = "41";
+            var cmd = ["\nG53 G1 Z-80.7 F80\n"]; //collet should have just made contact with wrench head
+            //var cmd = ["\nG53 G1 Z-81 F80\n", "\n!\n", "\n!\n", "\n!\n", "\n!\n", "\n~\n", "\nG53 G1 Z-82.2\n"]; //collet should have just made contact with wrench head
+
+            var loosenNut = "4";                                                                             // couple feedholds to pause movement until wrench rotation stops and then start again
+           // var loosenNutBackoff = "41";
             
             cmd.forEach(function(item, index, array) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
            });
           
            for(var i=0; i<23;  i++){
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNutCTS + "\n");
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNut + "\n");
            }
-           if(i==23){
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNutBackoff + "\n");
-            
-           }else{}
-           
-           
               chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "AutoToolChange" , "Aligning Collet Nut" 
-                  ,
-                2000 /* show for 2 second */
+                "AutoToolChange" , "Aligning Collet Nut", 2000 /* show for 2 second */
             );
         },
                 //iff aligned properly move collet until full dock
-            tcColletDockBtnClick: function(evt) {
-            var cmd = ["\nG53 G1 Z-82.2 F50\n"]; //move to engage bottom portion of collet, leaving room for it to move down as it is loosened
+        tcColletDockBtnClick: function(evt) {
+            var cmd = ["\nG53 G1 Z-82.0 F50\n"]; //move to engage bottom portion of collet, leaving room for it to move down as it is loosened
+            var loosenNutBackoff = "41";
             //execute loosen command ten times or until you heard the tool fall and make contact with the magnet
             //move up to z-40
             //disengage spindle shaft wrench
-            
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNutBackoff + "\n");
             cmd.forEach(function(item, index, array) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
            });
@@ -403,9 +399,19 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             //chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + cmd2 + "\n");
               chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "AutoToolChange" , "Docking Collet Nut" 
-                  ,
-                2000 /* show for 2 second */
+                "AutoToolChange" , "Docking Collet Nut", 2000 /* show for 2 second */
+            );
+        },
+        
+        tcColletLoosenBtnClick: function(evt) {
+            var loosenNut = "4";                                                                             
+            for(var i=0; i<10;  i++){
+                chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNut + "\n");
+            }  
+     
+              chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "AutoToolChange" , "looseing Collet Nut", 2000 /* show for 2 second */
             );
         },
             spindleEngageBtnClick: function(evt) {
