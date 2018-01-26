@@ -352,10 +352,10 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             //var arduinoCmd = ["5"];
            // var cmd2 = "G53 Y10 F500";
             
-            cmd.forEach(function(item, index, array) {
+            //cmd.forEach(function(item, index, array) {
             //console.log(item, index);
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
-            });
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", cmd);
+           // });
            /* arduinoCmd.forEach(function(item, index, array) {
             //console.log(item, index);
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
