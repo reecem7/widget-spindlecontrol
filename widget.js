@@ -365,7 +365,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
             //move to point where collet just makes contact with wrench head
               tcColletAlignBtnClick: function(evt) {
-            var cmd = ["\nG53 Z-60 F200\n", "\nG53 Z-80.4 F25\n"]; //collet should have just made contact with wrench head
+            var cmd = ["\nG53 Z-80.4 F10\n"]; //collet should have just made contact with wrench head
             cmd.forEach(function(item, index, array) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
            });
