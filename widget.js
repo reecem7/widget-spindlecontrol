@@ -388,7 +388,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         
            spindleDisengageBtnClick: function(evt) {
             var cmd = "3";
-             chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0" + cmd + "\n");
+             chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + cmd + "\n");
         
               chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
