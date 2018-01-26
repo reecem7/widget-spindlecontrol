@@ -365,8 +365,8 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
             //move to point where collet just makes contact with wrench head
               tcColletAlignBtnClick: function(evt) {
-            var cmd = ["\nG53 G1 Z-81 F80\n"]; //collet should have just made contact with wrench head
-            var loosenNutCTS = "4";
+            var cmd = ["\nG53 G1 Z-81 F80\n", "\n!\n", "\n!\n", "\n!\n", "\n!\n", "\n~\n", "\nG53 G1 Z-82.2\n"]; //collet should have just made contact with wrench head
+            var loosenNutCTS = "4";                                                                             // couple feedholds to pause movement until wrench rotation stops and then start again
             var loosenNutBackoff = "41";
             
             cmd.forEach(function(item, index, array) {
@@ -378,7 +378,10 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
            }
            if(i==23){
             chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNutBackoff + "\n");
+            
            }else{}
+           
+           
               chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "AutoToolChange" , "Aligning Collet Nut" 
