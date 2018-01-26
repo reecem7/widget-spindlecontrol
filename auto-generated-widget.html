@@ -490,7 +490,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             //var jsonCmd = "{"P":"/dev/ttyACM0","Data":[{"D":"3\n","Id":"console0"}]}"; //get response [object object]
             var jsonCmd = "/dev/ttyACM0 2";
              chilipeppr.publish("/com-chilipeppr-widget-serialport/send", jsonCmd); 
-             chilipeppr.publish("/com-chilipeppr-widget-spconsole/send", jsonCmd); 
+            // chilipeppr.publish("/com-chilipeppr-widget-spconsole/send", jsonCmd); 
 
               chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
