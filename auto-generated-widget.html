@@ -325,11 +325,13 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             $('#' + this.id + ' .btn-spindleOff').click(this.spindleOffBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleMin').click(this.minSpeedBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleMax').click(this.maxSpeedBtnClick.bind(this));
-            $('#' + this.id + ' .btn-tcStartPosition').click(this.tcPositionStartBtnClick.bind(this));
+            $('#' + this.id + ' .btn-tcStartPosition').click(this.tcStartPositionBtnClick.bind(this));
+            $('#' + this.id + ' .btn-tcColletAlign').click(this.tcColletAlignBtnClick.bind(this));
+            $('#' + this.id + ' .btn-tcColletDock').click(this.tcColletDockBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleEngage').click(this.spindleEngageBtnClick.bind(this));
             $('#' + this.id + ' .btn-spindleDisengage').click(this.spindleDisengageBtnClick.bind(this)); 
             $('#' + this.id + ' .btn-colletLoosen').click(this.colletLoosenBtnClick.bind(this));
-            $('#' + this.id + ' .btn-colletTighten').click(this.colletTightenBtnClick.bind(this));
+            $('#' + this.id + ' .btn-colletTighten').click(this.colletTightenBtnClick.bind(this)); 
             
         },
         /**
@@ -458,42 +460,48 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                 2500 /* show for 2 second */
             )}
         },
-            tcPositionStartBtnClick: function(evt) {
-            var cmd = ["\nG53 X279.2 Y16.6 F800\n", "\nG53 Z-40 F600\n", "\nG53 Z-50 F100\n",];
+            tcStartPositionBtnClick: function(evt) {
+            var cmd = ["\nG53 X279.2 Y16.6 F800\n", "\nG53 Z-40 F600\n"];
             //var cmd = { "P": "/dev/ttyUSB0", "Data": [ { "D": "G53 G1 X25 Y25 F600\n", "Id": "222" }] };
            // var cmd =  {P: "/dev/ttyUSB0", D: "G1 x10 F600\n", Id: "222" };
-            var jsonSend = { "P": "/dev/ttyUSB0", "Data": [ { "D": " G53 X10 F600\n", "Id": "222" } ] };
-             /*var jsonSend = {
-                D: gcode,
-                Id: "jog" + this.sendCtr
-            };
-                chilipeppr.publish("/com-chilipeppr-widget-serialport/jsonSend", jsonSend);
-                 this.sendCtr++;
-                 if (this.sendCtr > 999999) this.sendCtr = 0;
-                 */
-            //var arduinoCmd = ["5"];
-           // var cmd2 = "G53 Y10 F500";
-            
+            //var jsonSend = { "P": "/dev/ttyUSB0", "Data": [ { "D": " G53 X10 F600\n", "Id": "222" } ] };
             cmd.forEach(function(item, index, array) {
-            //console.log(item, index);
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
            });
-           /* arduinoCmd.forEach(function(item, index, array) {
-            //console.log(item, index);
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
-            });
-            */
-            
-            // chilipeppr.publish("/com-chilipeppr-widget-serialport/send", cmd1); 
-
               chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
-                "Spindle Control" , "Moving to Tool Change Start Position" 
+                "AutoToolChange" , "Moving to Tool Change Start Position" 
                   ,
                 2000 /* show for 2 second */
             );
         },
-            
+            //move to point where collet just makes contact with wrench head
+              tcColletAlignBtnClick: function(evt) {
+            var cmd = ["\nG53 Z-60 F200\n"];
+            cmd.forEach(function(item, index, array) {
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
+           });
+              chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "AutoToolChange" , "Aligning Collet Nut" 
+                  ,
+                2000 /* show for 2 second */
+            );
+        },
+                //iff aligned properly move collet until full dock
+            tcColletDockBtnClick: function(evt) {
+            //var cmd = ["\nG53 X279.2 Y16.6 F800\n"];
+            /*
+            cmd.forEach(function(item, index, array) {
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
+           });*/
+              chilipeppr.publish(
+                '/com-chilipeppr-elem-flashmsg/flashmsg',
+                "AutoToolChange" , "Docking Collet Nut" 
+                  ,
+                2000 /* show for 2 second */
+            );
+        },
             spindleEngageBtnClick: function(evt) {
               var cmd = "2";
              //chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 2\n"); 
@@ -798,9 +806,15 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
                     <p>Set .... </p>
                    
                     <table>
-                         
+                         <th>Operations</th>
                         <tr>
-                           <td><button type="button" class="btn btn-xs btn-default btn-tcStartPosition">Tool Change Position</button></td> 
+                           <td><button type="button" class="btn btn-xs btn-default btn-tcStartPosition"> Start Position</button></td> 
+                           </tr>
+                           <tr>
+                           <td><button type="button" class="btn btn-xs btn-default btn-tcColletAlign"> Collet-Wrench Align</button></td> 
+                           </tr>
+                           <tr>
+                           <td><button type="button" class="btn btn-xs btn-default btn-tcColletDock"> Dock Collet </button></td> 
                            </tr>
                         <th>Spindle Shaft Wrench</th>
                         <tr>
