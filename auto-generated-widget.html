@@ -465,7 +465,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
             tcStartPositionBtnClick: function(evt) {
             //var cmd = ["\nG53 G1 X279.2 Y16.6 F800\n", "\nG53 G1 Z-50 F500\n"]; //old position
-            var cmd = ["\nG53 G1 X267.8 Y32.1 F800\n", "\nG53 G1 Z-40 F500\n"]; //old position
+            var cmd = ["\nG53 G1 X267.8 Y32.1 F1200\n", "\nG53 G1 Z-40 F500\n"]; //old position
 
             //var cmd = { "P": "/dev/ttyUSB0", "Data": [ { "D": "G53 G1 X25 Y25 F600\n", "Id": "222" }] };
            // var cmd =  {P: "/dev/ttyUSB0", D: "G1 x10 F600\n", Id: "222" };
@@ -482,7 +482,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
             //move to point where collet just makes contact with wrench head
               tcColletAlignBtnClick: function(evt) {
-            var cmd = ["\nG53 G1 Z-80.7 F80\n"]; //collet should have just made contact with wrench head
+            var cmd = ["\nG53 G1 Z-87.8 F80\n"]; //collet should have just made contact with wrench head
             //var cmd = ["\nG53 G1 Z-81 F80\n", "\n!\n", "\n!\n", "\n!\n", "\n!\n", "\n~\n", "\nG53 G1 Z-82.2\n"]; //collet should have just made contact with wrench head
 
             var loosenNut = "4";                                                                             // couple feedholds to pause movement until wrench rotation stops and then start again
@@ -502,7 +502,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
                 //iff aligned properly move collet until full dock
         tcColletDockBtnClick: function(evt) {
-            var cmd = ["\nG53 G1 Z-82.0 F50\n"]; //move to engage bottom portion of collet, leaving room for it to move down as it is loosened
+            var cmd = ["\nG53 G1 Z-90.0 F50\n"]; //move to engage bottom portion of collet, leaving room for it to move down as it is loosened
             var loosenNutBackoff = "41";
             //execute loosen command ten times or until you heard the tool fall and make contact with the magnet
             //move up to z-40
