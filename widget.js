@@ -221,6 +221,8 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             $('#' + this.id + ' .btn-spindleDisengage').click(this.spindleDisengageBtnClick.bind(this)); 
             $('#' + this.id + ' .btn-colletLoosen').click(this.colletLoosenBtnClick.bind(this));
             $('#' + this.id + ' .btn-colletTighten').click(this.colletTightenBtnClick.bind(this)); 
+            $('#' + this.id + ' .btn-tcUnload').click(this.tcUnloadBtnClick.bind(this)); 
+        
             
         },
         /**
@@ -238,7 +240,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             // allows you to move slider to select new speed without forgetting what current spindle speed is
             speed.oninput = function() {
             curSpeed.innerHTML = this.value;
-            }
+            };
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);       
             /*var jsonSend = {
                 D: gcode,
@@ -258,7 +260,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             );
         },
         
-             sendCtr: 0,
+            
         spindleOnCcwBtnClick: function(evt) {
             var gcode = "M4 ";
             var speed = document.getElementById('myRange').value; //the slider value is assigned to the speed variable
@@ -270,7 +272,7 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
             // allows you to move slider to select new speed without forgetting what current spindle speed is
             speed.oninput = function() {
             curSpeed.innerHTML = this.value;
-            }
+            };
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", gcode);       
             /*var jsonSend = {
                 D: gcode,
