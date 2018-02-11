@@ -482,19 +482,22 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
             //move to point where collet just makes contact with wrench head
               tcColletAlignBtnClick: function(evt) {
-            var cmd = ["\nG53 G1 Z-78 F250\n", "\nG53 G1 Z-85.8 F80\n"]; //collet should have just made contact with wrench head
+            var cmd = ["\nG53 G1 Z-78 F250\n", "\nG53 G1 Z-85.5 F80\n"]; //collet should have just made contact with wrench head
             //var cmd = ["\nG53 G1 Z-81 F80\n", "\n!\n", "\n!\n", "\n!\n", "\n!\n", "\n~\n", "\nG53 G1 Z-82.2\n"]; //collet should have just made contact with wrench head
 
-           // var loosenNut = "4";                                                                             // couple feedholds to pause movement until wrench rotation stops and then start again
+            var loosenNut = "4";     // couple feedholds to pause movement until wrench rotation stops and then start again
+            var tightenNut = "5";   
            // var loosenNutBackoff = "41";
             
             cmd.forEach(function(item, index, array) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
            });
-          /*
-           for(var i=0; i<23;  i++){
+          
+           for(var i=0; i<3;  i++){
             chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNut + "\n");
-           }*/
+           }
+            chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + tightenNut + "\n");
+
               chilipeppr.publish(
                 '/com-chilipeppr-elem-flashmsg/flashmsg',
                 "AutoToolChange" , "Aligning Collet Nut", 2000 /* show for 2 second */
@@ -502,12 +505,12 @@ cpdefine("inline:com-chilipeppr-widget-spindlecontrol", ["chilipeppr_ready", /* 
         },
                 //iff aligned properly move collet until full dock
         tcColletDockBtnClick: function(evt) {
-            var cmd = ["\nG53 G1 Z-90.0 F50\n"]; //move to engage bottom portion of collet, leaving room for it to move down as it is loosened
+            var cmd = ["\nG53 G1 Z-89.0 F50\n"]; //move to engage bottom portion of collet, leaving room for it to move down as it is loosened
             var loosenNutBackoff = "41";
             //execute loosen command ten times or until you heard the tool fall and make contact with the magnet
             //move up to z-40
             //disengage spindle shaft wrench
-            chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNutBackoff + "\n");
+            //chilipeppr.publish("/com-chilipeppr-widget-serialport/ws/send", "send /dev/ttyACM0 " + loosenNutBackoff + "\n");
             cmd.forEach(function(item, index, array) {
             chilipeppr.publish("/com-chilipeppr-widget-serialport/send", item);
            });
